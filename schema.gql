@@ -1,0 +1,47 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type User {
+  _id: String!
+  firstName: String!
+  lastName: String!
+  password: String!
+  email: String!
+  createdAt: String!
+  roles: Roles
+}
+
+"""Roles for Admin creating projects and users"""
+enum Roles {
+  Admin
+  Basic
+}
+
+type Query {
+  sayHello: String!
+  findAllUsers: [User!]!
+  findOne(_id: String!): User!
+  CurrentUser: User!
+}
+
+type Mutation {
+  createUser(createUserInput: CreateUserInput!): User!
+  login(password: String!, email: String!): String!
+  UpdateUserInput(updateUserInput: UpdateUserInput!): User!
+  UpdateUserPass(newPass: String!, currPass: String!): User!
+  removeUser(_id: String!): User!
+}
+
+input CreateUserInput {
+  firstName: String!
+  lastName: String!
+  email: String!
+  createdAt: String = "2021-12-15T22:49:54.712Z"
+}
+
+input UpdateUserInput {
+  firstName: String
+  lastName: String
+  email: String
+}
