@@ -3,6 +3,8 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { FooResolver } from './foo/foo.resolver';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -11,8 +13,9 @@ import { AppService } from './app.service';
       installSubscriptionHandlers: true,
       autoSchemaFile: 'schema.gql',
     }),
+    UserModule
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, FooResolver],
 })
 export class AppModule {}
