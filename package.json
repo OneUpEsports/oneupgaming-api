@@ -1,6 +1,6 @@
 {
   "name": "oneupgaming",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "",
   "author": "",
   "private": true,
@@ -23,8 +23,11 @@
   "dependencies": {
     "@nestjs/common": "^8.0.0",
     "@nestjs/core": "^8.0.0",
-    "@nestjs/mongoose": "^9.0.1",
     "@nestjs/platform-express": "^8.0.0",
+    "@nestjs/graphql": "^9.1.2",
+    "@nestjs/mongoose": "^9.0.1",
+    "apollo-server-express": "^3.5.0",
+    "graphql": "^15.8.0",
     "mongoose": "^6.1.1",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
