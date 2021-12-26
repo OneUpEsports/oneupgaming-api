@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://www.github.com/OneUpEsports/oneupgaming-api/compare/v1.1.0...v1.2.0) (2021-12-26)
+
+
+### Features
+
+* friends ([c5cf332](https://www.github.com/OneUpEsports/oneupgaming-api/commit/c5cf332d8a57e281d5bd3fdef8a415118416d8f8))
+
 ## [1.1.0](https://www.github.com/OneUpEsports/oneupgaming-api/compare/v1.0.0...v1.1.0) (2021-12-15)
 
 
