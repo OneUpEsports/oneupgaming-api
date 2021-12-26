@@ -94,4 +94,14 @@ export class UserResolver {
       console.error(err);
     }
   }
+
+  @Query(() => [User], { name: 'searchUsers' })
+  @UseGuards(GqlAuthGuard)
+  async searchUser(@Args('username') username: string){
+    try {
+      return await this.us.searchUser(username)
+    } catch(err) {
+      console.error(err)
+    }
+  }
 }

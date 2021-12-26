@@ -6,6 +6,7 @@ import { CreateUserInput, UpdateUserInput } from './user-inputs.dto';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { GraphQLError } from 'graphql';
+import { Friends } from 'src/friends/entities/friend.entity';
 
 @Injectable()
 export class UserService {
@@ -20,7 +21,7 @@ export class UserService {
         email: createUserInput.email,
       });
       if (isUser) {
-        throw new GraphQLError('you already exist');
+        throw new GraphQLError('User already exist');
       } else {
         createUserInput.password = await bcrypt
           .hash(createUserInput.password, 10)
@@ -63,7 +64,7 @@ export class UserService {
 
   async updatePassword(_id, currPass, newPass) {
     try {
-      const User = await this.UserModel.findById(_id);
+      const User = await this.UserModel.findById(_id).exec();
       if (await bcrypt.compare(currPass, User.password)) {
         User.password = await bcrypt.hash(newPass, 10);
         return await new this.UserModel(User).save();
@@ -75,9 +76,23 @@ export class UserService {
 
   async findOne(_id: Types.ObjectId) {
     try {
-      return await this.UserModel.findById(_id);
+      const TEST = await this.UserModel.findById(_id, null , {lean: true} ).exec();
+     console.log(await TEST)
+     return TEST
     } catch (err) {
       console.error(err);
+    }
+  }
+
+  async searchUser(username: string){
+    try {
+      const name = username
+      const User = await this.UserModel.find({username: {$regex: name, $options: 'i'}}).lean().exec()
+      console.log(await User)
+      if(!User) throw new  Error("No Users were found")
+      return User
+    } catch (err){
+      console.error(err)
     }
   }
 
