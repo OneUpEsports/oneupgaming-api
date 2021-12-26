@@ -1,7 +1,7 @@
-import { UserGuard } from './user.guard';
+import { GqlAuthGuard } from './user.guard';
 
 describe('UserGuard', () => {
   it('should be defined', () => {
-    expect(new UserGuard()).toBeDefined();
+    expect(new GqlAuthGuard()).toBeDefined();
   });
 });

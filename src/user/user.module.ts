@@ -3,7 +3,6 @@ import { UserService } from './user.service';
 import { UserResolver } from './user.resolver';
 import { MongooseModule } from '@nestjs/mongoose';
 import { User, UserSchema } from './user.entity';
-import { JwtStrategy } from './jwt.strategy';
 import { JwtModule } from '@nestjs/jwt';
 
 @Module({
@@ -11,10 +10,11 @@ import { JwtModule } from '@nestjs/jwt';
     JwtModule.register({
       // TODO: Use ENV secret 
       secret: 'hard!to-guess_secret',
-      signOptions: { expiresIn: '24h' },
+      signOptions: { expiresIn: '96h' },
     }),
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
   ],
-  providers: [UserResolver, UserService, JwtStrategy],
+  providers: [UserResolver, UserService],
+  exports: [UserService]
 })
 export class UserModule {}

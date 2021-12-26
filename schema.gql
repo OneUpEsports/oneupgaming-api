@@ -2,20 +2,58 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Friends {
+  requester: User!
+  recipient: User!
+  status: status
+}
+
+"""friendship states"""
+enum status {
+  AddFriend
+  Requested
+  Pending
+  Accepted
+}
+
 type User {
   _id: String!
-  firstName: String!
-  lastName: String!
-  password: String!
-  email: String!
-  createdAt: String!
+  firstName: String
+  username: String
+  lastName: String
+  password: String
+  email: String
+  createdAt: String
   roles: Roles
+  friends: [Friends!]
 }
 
 """Roles for Admin creating projects and users"""
 enum Roles {
   Admin
   Basic
+  Premium
+}
+
+type UserFriendslist {
+  _id: String!
+  firstName: String
+  username: String
+  lastName: String
+  password: String
+  email: String
+  createdAt: String
+  roles: Roles
+  friends: [Friends!]
+  friendsStatus: Float
+}
+
+type Team {
+  _id: String!
+  owner: User!
+  name: String!
+  description: String
+  image: String
 }
 
 type Query {
@@ -23,6 +61,10 @@ type Query {
   findAllUsers: [User!]!
   findOne(_id: String!): User!
   CurrentUser: User!
+  searchUsers(username: String!): [User!]!
+  findAllTeams: [Team!]!
+  findTeam(_id: String!): Team!
+  getFriends(_id: String!): [UserFriendslist!]!
 }
 
 type Mutation {
@@ -31,17 +73,49 @@ type Mutation {
   UpdateUserInput(updateUserInput: UpdateUserInput!): User!
   UpdateUserPass(newPass: String!, currPass: String!): User!
   removeUser(_id: String!): User!
+  createTeam(createTeamInput: CreateTeamInput!): Team!
+  updateTeam(updateTeamInput: UpdateTeamInput!): Team!
+  removeTeam(id: Int!): Team!
+  acceptFriend(acceptFriendInput: acceptFriendInput!): [Friends!]!
+  addFriend(addFriendInput: addFriendInput!): Friends!
+  rejectFriend(addFriendInput: addFriendInput!): [Friends!]!
 }
 
 input CreateUserInput {
   firstName: String!
   lastName: String!
+  username: String!
   email: String!
-  createdAt: String = "2021-12-15T22:49:54.712Z"
+  password: String!
+  createdAt: String = "2021-12-26T12:34:06.300Z"
 }
 
 input UpdateUserInput {
   firstName: String
   lastName: String
+  username: String
   email: String
+}
+
+input CreateTeamInput {
+  owner_id: String!
+  name: String!
+  description: String!
+}
+
+input UpdateTeamInput {
+  owner_id: String
+  name: String
+  description: String!
+  _id: String!
+}
+
+input acceptFriendInput {
+  requester: String!
+  recipient: String!
+}
+
+input addFriendInput {
+  requester: String!
+  recipient: String!
 }
